@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despachante de Trânsito</title>
+    <link rel="stylesheet" type="text/css" href="perfil-desp.css">
+
+    <!--LINK DA FONTE-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!--CABEÇA - NAVEGAÇÃO-->
+    <header>
+        <nav>
+            <h1>Bem-Vindo, Nome Despachante</h1>
+            <div class="buttons">
+                <button>Serviços</button>
+                <button>Chamados</button>
+                <button>Agendamentos</button>
+                <button id="btn-perfil">Perfil</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h2>Perfil</h2>
+        <div class="container">
+            <section class="cont-1">
+                <div class="profile-picture">
+                    <img src="placeholder.png" alt="Foto do perfil">
+                </div>
+                <div>
+                    <h3>Informações Pessoais</h3>
+                    <label>Nome Completo</label>
+                    <input type="text" placeholder="Value">
+                    <label>CPF</label>
+                    <input type="text" placeholder="Value">
+                    <label>RG</label>
+                    <input type="text" placeholder="Value">
+                    <label>Data de Nascimento</label>
+                    <input type="date" placeholder="Dia / Mês / Ano">
+                </div>
+                <div>
+                    <h3>Informações Despachante</h3>
+                    <label>Registro CRDD</label>
+                    <input type="text" placeholder="Value">
+                    <label>Data de Expiração</label>
+                    <input type="date" placeholder="Dia / Mês / Ano">
+                </div>
+            </section>
+            <section class="cont-2">
+                <div>
+                    <h3>Informações de Contato e Login</h3>
+                    <div class="inline-fields">
+                        <div>
+                            <label>Telefone Pessoal</label>
+                            <input type="text" placeholder="(99) 99999-9999">
+                        </div>
+                        <div>
+                            <label>Telefone Comercial</label>
+                            <input type="text" placeholder="(99) 99999-9999">
+                        </div>
+                    </div>
+                    <label>Email</label>
+                    <input type="email" placeholder="Digite seu email">
+                    <div class="inline-fields">
+                        <div>
+                            <label>Senha</label>
+                            <input type="password" placeholder="Digite sua senha">
+                        </div>
+                        <div>
+                            <label>Confirmar Senha</label>
+                            <input type="password" placeholder="Confirme sua senha">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Endereço Comercial</h3>
+                    <label>Endereço</label>
+                    <input type="text" placeholder="Digite o endereço">
+                    <div class="inline-fields">
+                        <div>
+                            <label>Bairro</label>
+                            <input type="text" placeholder="Digite o bairro">
+                        </div>
+                        <div>
+                            <label>CEP</label>
+                            <input type="text" placeholder="00000-000">
+                        </div>
+                    </div>
+                    <div class="inline-fields">
+                        <div>
+                            <label>Cidade</label>
+                            <input type="text" placeholder="Digite a cidade">
+                        </div>
+                        <div>
+                            <label>Estado</label>
+                            <input type="text" placeholder="Digite o estado">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label>Justificativa</label>
+                    <textarea placeholder="Digite Aqui"></textarea>
+                    <p>Será encaminhado um e-mail para o administrador informando quais das informações você está solicitando alteração.</p>
+                </div>
+            </section>
+        </div>
+        <button class="update-button">Atualizar Informações</button>
+    </main>
+    
+</body>
+</html>

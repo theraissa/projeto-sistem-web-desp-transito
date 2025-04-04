@@ -1,0 +1,102 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*evitar que o padding acrescente valor*/
+}
+body {
+    background-color: #F5EFE7;
+}
+/* CABEÇA - NAVEGAÇÃO */
+header {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+
+    background-color: #213555;
+    color: white;
+}
+/* TITULO - NAVEGAÇÃO  */
+header nav h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    left: 55%;
+
+    transform: translateX(-50%);
+    font-size: 20px;
+    margin: 0;
+}   
+/* BOTÃO - NAVEGAÇÃO  */
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre botões */
+    
+}
+.buttons button {
+    padding: 4px 10px; /*tam do botão*/
+    background-color: #F5F5F5;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.buttons button:hover, #btn-despachante {
+    cursor: pointer;
+    background-color: #3E5879;
+    color: #F5F5F5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+/* BLOCO DOS DESPACHANTES */
+main {
+    padding: 20px;
+    text-align: center;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.search-container input {
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+/*CONTEINER DOS DESPACHANTES*/
+.cards-container {
+    display: grid;
+    width: 80%;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center; /* Centraliza cada item (card) dentro da grid */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+    margin: 0 auto; /* Centraliza o container horizontalmente */
+}
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 200px;
+    height: 220px;
+    padding: 10px;
+    font-size: 12px;
+
+}
+.card:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+.image-placeholder {
+    background-color: #e0e0e0;
+    height: 150px;
+    border-radius: 5px;
+}
