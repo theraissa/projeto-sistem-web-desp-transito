@@ -1,0 +1,64 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*evitar que o padding acrescente valor*/
+    
+}
+body {
+    background-color: #F5EFE7;
+}
+/*CABEÇA - NAVEGAÇÃO*/
+header {
+    background-color: #1e3551;
+    color: white;
+    padding: 20px;
+}
+/*CONTAINER*/
+.container-cliente-despachante {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    width: 100%;
+    height: 100%;
+}
+
+/*DIV - COM BOTÕES*/
+.div-escolha {
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*TITULO DA DIV*/
+.div-escolha h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
+
+/*BOTÕES DA DIV*/
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.button {
+    background-color: #2B2B2B; /* Cor preta dos botões */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    text-decoration: none;
+}
+.button:hover {
+    background-color: #444; /* Cor mais clara ao passar o mouse */
+}
