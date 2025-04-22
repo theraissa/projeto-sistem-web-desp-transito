@@ -1,0 +1,37 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main  # ou a branch que você quer monitorar, como "dev"
+  pull_request:
+    branches:
+      - main  # ou a branch que você deseja monitorar
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Fazer checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Passo 2: Configurar o Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Passo 3: Fazer login no Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}   # Variáveis secretas que você vai configurar no GitHub
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Passo 4: Construir e enviar a imagem Docker
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .  # Diretório atual do repositório (onde está o Dockerfile)
+          push: true  # Se você quiser enviar a imagem para o Docker Hub
+          tags: ${{ secrets.DOCKER_USERNAME }}/projeto-sistem-web-desp-transito:${{ github.sha }}  # Nome da imagem e tag
