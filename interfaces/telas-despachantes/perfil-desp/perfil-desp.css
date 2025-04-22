@@ -1,0 +1,92 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*evitar que o padding acrescente valor*/
+}
+body {
+    background-color: #F5EFE7;
+}
+/* CORPO DOS FORMULARIOS */
+main {
+    text-align: center;
+    margin: 20px;
+}
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 42%;
+}
+/*IMAGEM*/
+.profile-picture {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+}
+
+/*TITULOS DO BLOCO*/
+h3 {
+    font-size: 17px;
+    text-align: center;
+    padding: 20px;
+}
+/*TITULOS E LOCAL DA ENTRADA DE DADOS*/
+label {
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    margin: 5px 0 2px;
+}
+input, textarea{
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;
+}
+p {
+    font-size: 12px;
+    margin: 5px 0 2px;
+}
+
+
+/*CAMPOS EMBUTIDOS*/
+.inline-fields {
+    display: flex;
+    justify-content: space-between;
+}
+.inline-fields div {
+    width: 48%;
+}
+/*BOTÃO - ATUALIZAR INFORMAÇÕES*/
+.update-button{
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 40%;
+}
+
+
+
+
+
