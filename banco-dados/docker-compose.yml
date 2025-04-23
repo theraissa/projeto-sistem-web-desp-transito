@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13 # Usando a imagem oficial do PostgreSQL
+    container_name: banco-dados # Nome do container
+    environment:
+      POSTGRES_USER: raissa # Nome do usuário que vai acessar o banco
+      POSTGRES_PASSWORD: Lima042! # Senha do banco
+      POSTGRES_DB: sistema_desp # Nome do banco de dados
+    ports:
+      - "5432:5432" # Mapeia a porta 5432 do container para a máquina local
+    volumes:
+      - ./data/db:/var/lib/postgresql/data # Mapeia um diretório local para persistir os dados do banco
+    networks:
+      - backend_network
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: banco-grafico
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+      ports:
+        - "8082:80"
+networks:
+  backend_network:
+    name: backend_network  # Força o nome exato
+    driver: bridge
+    attachable: true  # Permite conectar containers manualmente
