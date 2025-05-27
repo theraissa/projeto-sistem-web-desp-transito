@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
+
+    <!--<link rel="stylesheet" type="text/css" href="login.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}">
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,19 +14,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <!--CABEÇA - NAVEGAÇÃO-->
     <header>
         <h1>Login</h1>
     </header>    
     <main>
         <section class="section-login">
-            <form action="">
+            <form action="{{ url_for('login.login') }}" method="POST">
                 <label for="email">Email</label>
-                <input type="email" id="email-login" placeholder="Digite seu email">
+                <input type="email" id="email-login" name="email-cliente" placeholder="Digite seu email">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha-login" placeholder="Digite sua senha">
+                <input type="password" id="senha-login" name="senha-cliente" placeholder="Digite sua senha">
                 <div class="button-acessar">
-                    <a href="login-autentic/login-autentic.html" class="button">Acessar</a>
+                    <button type="submit" class="button">Acessar</button>
                 </div>
             </form>
         </section>

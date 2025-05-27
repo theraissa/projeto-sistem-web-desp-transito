@@ -1,22 +1,24 @@
-CREATE TABLE Cadastro_Cliente (
-    cpf_cliente VARCHAR(14) PRIMARY KEY,
-    rg_cliente INT,
-    nome_cliente VARCHAR(100),
+CREATE TABLE cliente (
+    cpf_cliente VARCHAR(14) PRIMARY KEY NOT NULL,
+    rg_cliente VARCHAR(20),
+    nome_cliente VARCHAR(100) NOT NULL,
     nasc_cliente DATE,
-    tele_pessoal_cliente VARCHAR(15),
-    telefone_residencial_cliente VARCHAR(15),
-    email_cliente VARCHAR(100),
-    endereco_cliente VARCHAR(255),
+    tele_pessoal_cliente VARCHAR(20),
+    telefone_residencial_cliente VARCHAR(20),
+    email_cliente VARCHAR(100) NOT NULL UNIQUE,
+    endereco_cliente VARCHAR(200),
     bairro_cliente VARCHAR(100),
-    n_casa_cliente INT,
+    n_casa_cliente INTEGER,
     cep_cliente VARCHAR(10),
     cidade_cliente VARCHAR(100),
     estado_cliente VARCHAR(50),
-    status_conta BOOLEAN,
-    ult_atualiz_cliente TIMESTAMP,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    status_conta BOOLEAN DEFAULT TRUE,
+    ult_atualiz_cliente TIMESTAMP WITH TIME ZONE,
+    data_criacao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    senha_cliente VARCHAR(255) NOT NULL
 );
 
+/*
 CREATE TABLE Perfil_Cliente (
     id_perfil_cliente SERIAL PRIMARY KEY,
     cpf_cliente VARCHAR(14) REFERENCES Cadastro_Cliente(cpf_cliente),
@@ -81,3 +83,4 @@ CREATE TABLE Agenda (
     ult_atualiz_agenda TIMESTAMP,
     status_agenda VARCHAR(50)
 );
+*/

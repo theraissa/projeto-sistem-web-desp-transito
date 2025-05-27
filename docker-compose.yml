@@ -1,0 +1,58 @@
+
+services:
+  db:
+    build:
+      context: ./banco-dados
+      dockerfile: Dockerfile
+    container_name: banc-dados
+    environment:
+      POSTGRES_USER: raissa 
+      POSTGRES_PASSWORD: Lima042! 
+      POSTGRES_DB: sistema_desp 
+    ports:
+      - "5432:5432" 
+    volumes:
+      - ./data/db:/var/lib/postgresql/data # Mapeia um diretório local para persistir os dados do banco
+    networks: 
+      - backend_network
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: banc-grafico
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+      ports:
+        - "8082:80"
+      networks:
+        - backend_network
+  app:
+      build:
+        context: .
+        dockerfile: ./estrutura-logica/Dockerfile
+      container_name: flask-app 
+      ports:
+        - "5000:5000"
+      environment:
+        # Passa a URL de conexão do banco de dados para o container da aplicação
+        # Use 'db' como host, pois é o nome do serviço do banco na rede Docker
+        DATABASE_URL: postgresql://raissa:Lima042!@db:5432/sistema_desp
+      networks:
+        - backend_network # Coloca a aplicação na mesma rede do banco de dados
+      depends_on:
+        - db # Garante que o banco de dados inicie antes da aplicação
+  frontend:
+    build:
+      context: ./interfaces
+      dockerfile: Dockerfile
+    container_name: front-end
+    ports:
+      - "8080:80"
+    networks:
+      - backend_network
+    depends_on:
+      - app
+networks:
+  backend_network:
+    name: backend_network
+    driver: bridge
+    attachable: true

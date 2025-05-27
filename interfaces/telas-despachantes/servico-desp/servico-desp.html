@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
     
-    <link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
-    <link rel="stylesheet" type="text/css" href="servico-desp.css">
+    <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
+    <link rel="stylesheet" type="text/css" href="servico-desp.css">-->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/nav-header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/servico-desp/servico-desp.css') }}">
+
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,9 +24,9 @@
             <h1>Olá, Nome Despachante</h1>
             <div class="buttons">
                 <a href="" id="btn-perfil" class="button">Serviços</a>
-                <a href="../chamado-desp/chamado-desp.html" class="button">Chamados</a>
-                <a href="../agend-desp/agend-desp.html" class="button">Agendamentos</a>
-                <a href="../perfil-desp/perfil-desp.html" class="button">Seu Perfil</a>
+                <a href="/despachante/chamados" class="button">Chamados</a>
+                <a href="/despachante/agendamentos" class="button">Agendamentos</a>
+                <a href="/despachante/perfil" class="button">Seu Perfil</a>
             </div>
         </nav>
     </header>

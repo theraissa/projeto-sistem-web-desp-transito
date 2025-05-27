@@ -68,14 +68,12 @@ nav ul li a, .button-login, .button-cadastro {
     padding: 20px;
     color: #757575;
 }
-
 .login-form input {
     padding: 8px;
     margin-right: 5px;
     border-radius: 6px;
     border: 1px solid white;
 }
-
 .login-form button {
     padding: 8px 15px;
     border: none;
@@ -97,11 +95,20 @@ nav ul li a, .button-login, .button-cadastro {
 .sessao-quadro {
     width: 300px;
     height: 300px;
+    padding: 15px;
     background-color: #ccc;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+}
+.titulo-sessao {
+    text-align: left;
+    padding-bottom: 15px;
+    font-size: 12px;
+}
+.parag-sessao {
+    text-align: left; /* Alinha o texto de forma justificada */
+    line-height: 1.5; /* Define o espaçamento entre as linhas */
+    font-size: 12px;
 }
 
 /*SESSAO SOBRE NOS*/
@@ -112,14 +119,27 @@ nav ul li a, .button-login, .button-cadastro {
     justify-content: center;
     background-color: #D8C4B6;
 }
-
 .sobre-nos-texto {
     width: 900px;
     height: 300px;
-    display: flex;
+    padding: 40px;
+    display: block;
     border-radius: 25px;
     background-color: #F5EFE7;
-
+}
+.titulo-sobre-nos, .parag-sobre-nos {
+    display: flex;
+    justify-content: center;
+}   
+.titulo-sobre-nos {
+    padding-bottom: 15px;
+    font-size: 19px;
+}
+.parag-sobre-nos {
+    text-align: justify; /* Alinha o texto de forma justificada */
+    line-height: 1.9; /* Define o espaçamento entre as linhas */
+    text-indent: 2em;
+    font-size: 12px;
 }
 
 /*RODAPE*/

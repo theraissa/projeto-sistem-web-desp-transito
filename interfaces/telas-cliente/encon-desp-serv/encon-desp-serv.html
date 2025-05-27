@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
 
-    <link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
-    <link rel="stylesheet" type="text/css" href="encon-desp-serv.css">
+    <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
+    <link rel="stylesheet" type="text/css" href="encon-desp-serv.css">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout/nav-header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='telas-cliente/encon-desp-serv/encon-desp-serv.css') }}">
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +22,8 @@
             <h1>Despachantes e Serviços</h1>
             <div class="buttons">
                 <a id="btn-despachante" class="button">Despachantes</a>
-                <a href="../chamado-cliente/chamado-cliente.html" class="button">Chamados</a>
-                <a href="../perfil-cliente/perfil-cliente.html" class="button">Seu Perfil</a>
+                <a href="/cliente/chamadoCliente" class="button">Chamados</a>
+                <a href="/cliente/perfilCliente" class="button">Seu Perfil</a>
             </div>
         </nav>
     </header>
@@ -41,3 +43,5 @@
             <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
         </section>
     </main>
+</body>
+</html>

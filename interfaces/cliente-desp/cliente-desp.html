@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
+
     <link rel="stylesheet" type="text/css" href="cliente-desp.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cliente-desp/cliente-desp.css') }}">
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +22,8 @@
         <div class="div-escolha">
             <h2>Cadastrar-se, como?</h2>
             <div class="buttons">
-                <a href="../telas-cliente/cadastro-cliente/cadastro-cliente.html" class="button">Cliente</a>
-                <a href="../telas-despachantes/cadastro-desp/cadastro-desp.html" class="button">Despachante</a>
+                <a href="/cadadastroCliente/" class="button">Cliente</a>
+                <a href="/cadastroDespachante/" class="button">Despachante</a>
             </div>
         </div>
     </div>
