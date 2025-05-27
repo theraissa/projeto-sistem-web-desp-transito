@@ -25,5 +25,5 @@ Este é um sistema web desenvolvido para facilitar a comunicação entre despach
 - O deploy automatizado via script simplifica o processo de atualização dos containers.
 
 ## ✨ Autor
-Desenvolvido por **Raissa M. Lima**.
-GitHub: theraissa
+- Desenvolvido por **Raissa M. Lima**.
+- GitHub: theraissa
