@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
 
-    <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
-    <link rel="stylesheet" type="text/css" href="perfil-cliente.css">-->
-
+    <link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
+    <link rel="stylesheet" type="text/css" href="perfil-cliente.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout/nav-header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='telas-cliente/perfil-cliente/perfil-cliente.css') }}">
 
@@ -28,96 +28,117 @@
             </div>
         </nav>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!-- CORPO DO FORMULARIO -->
     <main>
-        <div class="container">
-            <section class="profile-form">
-                <!--PRIMEIRO-->
-                <h2>Informações Pessoais</h2>
-                <label>Nome Completo</label>
-                <input type="text" placeholder="Value">
-                <div class="double-input">
-                    <div>
-                        <label>CPF</label>
-                        <input type="text" placeholder="000.000.000-00">
+        <form method="POST" id="perfil-form">
+            <div class="container">
+                <section class="profile-form">
+                    <!--PRIMEIRO-->
+                    <h2>Informações Pessoais</h2>
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome_cliente" value="{{ cliente[2] }}" readonly>
+                    <div class="double-input">
+                        <div>
+                            <label>CPF</label>
+                            <input type="text" name="cpf_cliente" value="{{ cliente[0] }}" readonly>
+                        </div>
+                        <div>
+                            <label>RG</label>
+                            <input type="text" name="rg_cliente" value="{{ cliente[1] }}" readonly>
+                        </div>
                     </div>
-                    <div>
-                        <label>RG</label>
-                        <input type="text" placeholder="Digite seu RG">
+                    <div class="double-input">
+                        <div>
+                            <label>Data de Nascimento</label>
+                            <input type="date" name="nasc_cliente" value="{{ cliente[3] }}" readonly>
+                        </div>
+                        <div>
+                            <button class="btn-anexo">Anexar Identidade</button>
+                        </div>
                     </div>
-                </div>
-                <div class="double-input">
-                    <div>
-                        <label>Data de Nascimento</label>
-                        <input type="date" placeholder="Dia / Mês / Ano">
-                    </div>
-                    <div>
-                        <button class="btn-anexo">Anexar Identidade</button>
-                    </div>
-                </div>
-             
                 
-                <!--SEGUNDO-->
-                <h2>Informações de Contato e Login</h2>
-                <div class="double-input">
-                    <div>
-                        <label>Telefone Pessoal</label>
-                        <input type="text" placeholder="(99) 99999-9999">
+                    
+                    <!--SEGUNDO-->
+                    <h2>Informações de Contato e Login</h2>
+                    <div class="double-input">
+                        <div>
+                            <label>Telefone Pessoal</label>
+                            <input type="text" name="tele_pessoal_cliente" value="{{ cliente[4] }}" readonly>
+                        </div>
+                        <div>
+                            <label>Telefone Residencial</label>
+                            <input type="text" name="tele_residencial" value="{{ endereco[2] }}" readonly>
+                        </div>
                     </div>
-                    <div>
-                        <label>Telefone Residencial</label>
-                        <input type="text" placeholder="(99) 99999-9999">
+                    <label>Email</label>
+                    <input type="email" name="email_cliente" value="{{ cliente[5] }}" readonly>
+                    <div class="double-input">
+                        <div>
+                            <label>Senha</label>
+                            <input type="password" name="senha_cliente" value="{{ cliente[6] }}" readonly>
+                        </div>
+                        <div>
+                            <label>Confirmar Senha</label>
+                            <input type="password" name="senha_confir" readonly>
+                        </div>
                     </div>
-                </div>
-                <label>Email</label>
-                <input type="email" placeholder="Value">
-                <div class="double-input">
-                    <div>
-                        <label>Senha</label>
-                        <input type="password" placeholder="Digite sua senha">
-                    </div>
-                    <div>
-                        <label>Confirmar Senha</label>
-                        <input type="password" placeholder="Confirme sua senha">
-                    </div>
-                </div>
 
-                <!--TERCEIRO-->
-                <h2>Endereço Residencial</h2>
-                <div class="double-input">
-                    <div>
-                        <label>Endereço</label>
-                        <input type="text" placeholder="Digite o endereço">
+                    <!--TERCEIRO-->
+                    <h2>Endereço Residencial</h2>
+                    <div class="double-input">
+                        <div>
+                            <label>Endereço</label>
+                            <input type="text" name="endereco_cliente" value="{{ endereco[3] }}" readonly>
+                        </div>
+                        <div>
+                            <label>Bairro</label>
+                            <input type="text" name="bairro_cliente" value="{{ endereco[5] }}" readonly>
+                        </div>
                     </div>
-                    <div>
-                        <label>Bairro</label>
-                        <input type="text" placeholder="Digite o bairro">
+                    <div class="double-input">
+                        <div>
+                            <label>Número da Casa</label>
+                            <input type="text" name="num_cliente" value="{{ endereco[4] }}" readonly>
+                        </div>
+                        <div>
+                            <label>CEP</label>
+                            <input type="text" name="cep_cliente" value="{{ endereco[6] }}" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="double-input">
-                    <div>
-                        <label>Número</label>
-                        <input type="text" placeholder="Digite Aqui">
+                    <div class="double-input">
+                        <div>
+                            <label>Cidade</label>
+                            <input type="text" name="cidade_cliente" value="{{ endereco[7] }}" readonly>
+                        </div>
+                        <div>
+                            <label>Estado</label>
+                            <input type="text" name="estado_cliente" value="{{ endereco[8] }}" readonly>
+                        </div>
                     </div>
-                    <div>
-                        <label>CEP</label>
-                        <input type="text" placeholder="Digite Aqui">
-                    </div>
-                </div>
-                <div class="double-input">
-                    <div>
-                        <label>Cidade</label>
-                        <input type="text" placeholder="Digite a cidade">
-                    </div>
-                    <div>
-                        <label>Estado</label>
-                        <input type="text" placeholder="Digite o estado">
-                    </div>
-                </div>
-
-                <button class="btn-update">Atualizar Informações</button>
-            </section>
-        </div>
+                    <button class="btn-update" id="editar-btn" type="button">Atualizar</button>
+                    <button class="btn-update" id="salvar-btn" type="submit" style="display:none;">Salvar</button>
+                </section>
+            </div>
+        </form>
     </main>
 </body>
 </html>
+
+<script>
+    const editarBtn = document.getElementById('editar-btn');
+    const salvarBtn = document.getElementById('salvar-btn');
+    const inputs = document.querySelectorAll('#perfil-form input');
+
+    editarBtn.addEventListener('click', function() {
+        inputs.forEach(input => input.removeAttribute('readonly'));
+        editarBtn.style.display = 'none';
+        salvarBtn.style.display = 'inline';
+    });
+</script> 

@@ -3,7 +3,7 @@ from flask import Blueprint, render_template
 inicio_bp = Blueprint('inicio', __name__)
 
 @inicio_bp.route('/')
-def index():
+def tela_inicial():
     return render_template('index.html')
 
 #Tela onde você vai escolher o tipo de cadastro, como cliente ou despachante

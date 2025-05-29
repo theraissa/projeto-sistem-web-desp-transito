@@ -65,7 +65,6 @@ p {
     margin: 5px 0 2px;
 }
 
-
 /*CAMPOS EMBUTIDOS*/
 .inline-fields {
     display: flex;
@@ -75,7 +74,7 @@ p {
     width: 48%;
 }
 /*BOTÃO - ATUALIZAR INFORMAÇÕES*/
-.update-button{
+.btn-update{
     background-color: #333;
     color: white;
     padding: 10px;

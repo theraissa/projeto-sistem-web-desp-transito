@@ -6,6 +6,7 @@
     <title>Despachante de Trânsito</title>
     
     <link rel="stylesheet" type="text/css" href="cadastro-cliente.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-cliente/cadastro-cliente/cadastro-cliente.css') }}">
 
     <!--LINK DA FONTE-->
@@ -20,6 +21,13 @@
             <h1>Olá, Cliente</h1>
         </nav>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!--CORPO - LOCAL PARA PREENCHER INFORMAÇÕES-->
     <main>
         <!--INFORMATIVO DA ESQUERDA-->

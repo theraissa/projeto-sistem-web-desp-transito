@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
     
-    <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
-    <link rel="stylesheet" type="text/css" href="perfil-desp.css">-->
-
+    <link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
+    <link rel="stylesheet" type="text/css" href="perfil-desp.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='layout/nav-header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/perfil-desp/perfil-desp.css') }}">
 
@@ -26,96 +26,126 @@
                 <a href="/despachante/servicos" class="button">Serviços</a>
                 <a href="/despachante/chamados" class="button">Chamados</a>
                 <a href="/despachante/agendamentos" class="button">Agendamentos</a>
-                <a id="btn-perfil"  class="button">Seu Perfil</a>
+                <a id="btn-perfil" class="button">Seu Perfil</a>
             </div>
         </nav>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <main>
         <h2>Perfil</h2>
-        <div class="container">
-            <section class="cont-1">
-                <div class="profile-picture">
-                    <img src="placeholder.png" alt="Foto do perfil">
-                </div>
-                <div>
-                    <h3>Informações Pessoais</h3>
-                    <label>Nome Completo</label>
-                    <input type="text" placeholder="Value">
-                    <label>CPF</label>
-                    <input type="text" placeholder="Value">
-                    <label>RG</label>
-                    <input type="text" placeholder="Value">
-                    <label>Data de Nascimento</label>
-                    <input type="date" placeholder="Dia / Mês / Ano">
-                </div>
-                <div>
-                    <h3>Informações Despachante</h3>
-                    <label>Registro CRDD</label>
-                    <input type="text" placeholder="Value">
-                    <label>Data de Expiração</label>
-                    <input type="date" placeholder="Dia / Mês / Ano">
-                </div>
-            </section>
-            <section class="cont-2">
-                <div>
-                    <h3>Informações de Contato e Login</h3>
-                    <div class="inline-fields">
-                        <div>
-                            <label>Telefone Pessoal</label>
-                            <input type="text" placeholder="(99) 99999-9999">
+        <form method="POST" id="perfil-form">
+            <div class="container">
+                <section class="cont-1">
+                    <div class="profile-picture">
+                        <img src="placeholder.png" alt="Foto do perfil">
+                    </div>
+                    <div>
+                        <h3>Informações Pessoais</h3>
+                        <label>Nome Completo</label>
+                        <input type="text" name="nome_desp" value="{{ despachante[2] }}" readonly>
+                        <label>CPF</label>
+                        <input type="text" name="cpf_desp" value="{{ despachante[0] }}" readonly>
+                        <label>RG</label>
+                        <input type="text" name="rg_desp" value="{{ despachante[1] }}" readonly>
+                        <label>Data de Nascimento</label>
+                        <input type="date" name="nasc_desp" value="{{ despachante[3] }}" readonly>
+                    </div>
+                    <div>
+                        <h3>Informações Despachante</h3>
+                        <label>Registro CRDD</label>
+                        <input type="text" name="regis_crdd" value="{{ despachante[7] }}" readonly>
+                        <label>Data de Expiração</label>
+                        <input type="date" name="data_exp_regis" value="{{ despachante[8] }}" readonly>
+                    </div>
+                </section>
+                <section class="cont-2">
+                    <div>
+                        <h3>Informações de Contato e Login</h3>
+                        <div class="inline-fields">
+                            <div>
+                                <label>Telefone Pessoal</label>
+                                <input type="text" name="tele_pessoal_desp" value="{{ despachante[4] }}" readonly>
+                            </div>
+                            <div>
+                                <label>Telefone Comercial</label>
+                                <input type="text" name="tele_comercial" value="{{ estabelecimento[2] }}" readonly>
+                            </div>
                         </div>
-                        <div>
-                            <label>Telefone Comercial</label>
-                            <input type="text" placeholder="(99) 99999-9999">
+                        <label>Email</label>
+                        <input type="email" name="email_desp" value="{{ despachante[5] }}" readonly>
+                        <div class="inline-fields">
+                            <div>
+                                <label>Senha</label>
+                                <input type="password" name="senha_desp" value="{{ despachante[6] }}" readonly>
+                            </div>
+                            <div>
+                                <label>Confirmar Senha</label>
+                                <input type="password" name="confirmar_senha" readonly>
+                            </div>
                         </div>
                     </div>
-                    <label>Email</label>
-                    <input type="email" placeholder="Digite seu email">
-                    <div class="inline-fields">
-                        <div>
-                            <label>Senha</label>
-                            <input type="password" placeholder="Digite sua senha">
+                    <div>
+                        <h3>Endereço Comercial</h3>
+                        <div class="inline-fields">
+                            <div>
+                                <label>Endereço</label>
+                                <input type="text" name="endereco_desp" value="{{ estabelecimento[3] }}" readonly>
+                            </div>
+                            <div>
+                                <label>Número do Comércio</label>
+                                <input type="text" name="num_desp" value="{{ estabelecimento[4] }}" readonly>
+                            </div>
                         </div>
-                        <div>
-                            <label>Confirmar Senha</label>
-                            <input type="password" placeholder="Confirme sua senha">
+                       
+                        <div class="inline-fields">
+                            <div>
+                                <label>Bairro</label>
+                                <input type="text" name="bairro_desp" value="{{ estabelecimento[5] }}" readonly>
+                            </div>
+                            <div>
+                                <label>CEP</label>
+                                <input type="text" name="cep_desp" value="{{ estabelecimento[6] }}" readonly>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <h3>Endereço Comercial</h3>
-                    <label>Endereço</label>
-                    <input type="text" placeholder="Digite o endereço">
-                    <div class="inline-fields">
-                        <div>
-                            <label>Bairro</label>
-                            <input type="text" placeholder="Digite o bairro">
-                        </div>
-                        <div>
-                            <label>CEP</label>
-                            <input type="text" placeholder="00000-000">
-                        </div>
-                    </div>
-                    <div class="inline-fields">
-                        <div>
-                            <label>Cidade</label>
-                            <input type="text" placeholder="Digite a cidade">
-                        </div>
-                        <div>
-                            <label>Estado</label>
-                            <input type="text" placeholder="Digite o estado">
+                        <div class="inline-fields">
+                            <div>
+                                <label>Cidade</label>
+                                <input type="text" name="cidade_desp" value="{{ estabelecimento[7] }}" readonly>
+                            </div>
+                            <div>
+                                <label>Estado</label>
+                                <input type="text" name="estado_desp" value="{{ estabelecimento[8] }}" readonly>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label>Justificativa</label>
-                    <textarea placeholder="Digite Aqui"></textarea>
-                    <p>Será encaminhado um e-mail para o administrador informando quais das informações você está solicitando alteração.</p>
-                </div>
-            </section>
-        </div>
-        <button class="update-button">Atualizar Informações</button>
+                    <div>
+                        <label>Justificativa</label>
+                        <textarea placeholder="Digite Aqui"></textarea>
+                        <p>Será encaminhado um e-mail para o administrador informando quais das informações você está solicitando alteração.</p>
+                    </div>
+                </section>
+            </div>
+            <button class="btn-update" id="editar-btn" type="button">Atualizar</button>
+            <button class="btn-update" id="salvar-btn" type="submit" style="display:none;">Salvar</button>
+        </form>
     </main>
-    
 </body>
 </html>
+
+<script>
+    const editarBtn = document.getElementById('editar-btn');
+    const salvarBtn = document.getElementById('salvar-btn');
+    const inputs = document.querySelectorAll('#perfil-form input');
+
+    editarBtn.addEventListener('click', function() {
+        inputs.forEach(input => input.removeAttribute('readonly'));
+        editarBtn.style.display = 'none';
+        salvarBtn.style.display = 'inline';
+    });
+</script> 

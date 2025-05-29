@@ -1,22 +1,58 @@
-CREATE TABLE cliente (
-    cpf_cliente VARCHAR(14) PRIMARY KEY NOT NULL,
+CREATE TABLE Cliente (
+    cpf_cliente VARCHAR(11) PRIMARY KEY NOT NULL,
     rg_cliente VARCHAR(20),
     nome_cliente VARCHAR(100) NOT NULL,
     nasc_cliente DATE,
     tele_pessoal_cliente VARCHAR(20),
-    telefone_residencial_cliente VARCHAR(20),
-    email_cliente VARCHAR(100) NOT NULL UNIQUE,
-    endereco_cliente VARCHAR(200),
-    bairro_cliente VARCHAR(100),
-    n_casa_cliente INTEGER,
-    cep_cliente VARCHAR(10),
-    cidade_cliente VARCHAR(100),
-    estado_cliente VARCHAR(50),
+    email_cliente VARCHAR(100) UNIQUE NOT NULL,
+    senha_cliente VARCHAR(255) NOT NULL,
     status_conta BOOLEAN DEFAULT TRUE,
-    ult_atualiz_cliente TIMESTAMP WITH TIME ZONE,
-    data_criacao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    senha_cliente VARCHAR(255) NOT NULL
+    ult_atualiz TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    data_criacao TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+CREATE TABLE Endereco (
+    id_endereco SERIAL PRIMARY KEY,
+    cpf_cliente VARCHAR(11) NOT NULL,
+    tele_resid_cliente VARCHAR(20),
+    endereco_cliente VARCHAR(100),
+    num_cliente INTEGER,
+    bairro_cliente VARCHAR(100),
+    cep_cliente VARCHAR(8),
+    cidade_cliente VARCHAR(50),
+    estado_cliente VARCHAR(2),
+    FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_cliente)
+);
+
+CREATE TABLE Despachante (
+    cpf_desp VARCHAR(11) PRIMARY KEY NOT NULL,
+    rg_desp VARCHAR(20) NOT NULL,
+    nome_desp VARCHAR(100) NOT NULL,
+    nasc_desp DATE NOT NULL,
+    tele_pessoal_desp VARCHAR(20) NOT NULL,
+    email_desp VARCHAR(100) NOT NULL UNIQUE,
+    senha_desp VARCHAR(255) NOT NULL,
+    regis_crdd VARCHAR(255) NOT NULL,
+    data_exp_regis DATE NOT NULL,
+    status_conta BOOLEAN DEFAULT TRUE,
+    ult_atualiz TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    data_criacao TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE Estabelecimento (
+    id_endereco SERIAL PRIMARY KEY,
+    cpf_desp VARCHAR(11) NOT NULL,
+    tele_comercial VARCHAR(20) NOT NULL,
+    endereco_desp VARCHAR(100) NOT NULL,
+    num_desp INTEGER NOT NULL,
+    bairro_desp VARCHAR(100) NOT NULL,
+    cep_desp VARCHAR(8) NOT NULL,
+    cidade_desp VARCHAR(50) NOT NULL,
+    estado_desp VARCHAR(2) NOT NULL,
+    FOREIGN KEY (cpf_desp) REFERENCES Despachante(cpf_desp)
+);
+
+
 
 /*
 CREATE TABLE Perfil_Cliente (

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
 
-    <!--<link rel="stylesheet" type="text/css" href="login.css">-->
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" href="../layout/mens_erro.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}">
 
     <!--LINK DA FONTE-->
@@ -14,18 +16,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, msg in messages %}
-                <div class="flash {{ category }}">{{ msg }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
     <!--CABEÇA - NAVEGAÇÃO-->
     <header>
         <h1>Login</h1>
     </header>    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <main>
         <section class="section-login">
             <form action="{{ url_for('login.login') }}" method="POST">
@@ -38,6 +39,7 @@
                 </div>
             </form>
         </section>
+    
     </main>
 </body>
 </html>

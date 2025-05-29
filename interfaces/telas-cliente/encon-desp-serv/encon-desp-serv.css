@@ -53,3 +53,7 @@ main {
     height: 150px;
     border-radius: 5px;
 }
+.nome_desp {
+    margin-top: 5px;
+    font-weight: 700;
+}

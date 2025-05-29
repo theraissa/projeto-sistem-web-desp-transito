@@ -6,8 +6,8 @@
     <title>Despachante de Trânsito</title>
 
     <link rel="stylesheet" type="text/css" href="cadastro-desp.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/cadastro-desp/cadastro-desp.css') }}">
-
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,97 +22,112 @@
             <h1>Olá, Despachante</h1>
         </nav>
     </header>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!--CORPO DOS FORMULARIOS-->
     <main>
         <h2>Complete as Lacunas</h2>
-        <div class="container">
-            <!--PRIMEIRO CONTAINER-->
-            <section class="info-pessoais">
-                <!--INFORMAÇÕES PESSOAIS-->
-                <h3>Informações Pessoais</h3>
-                <label>Nome Completo</label>
-                <input type="text" placeholder="Digite seu nome">
-                <div class="inline-fields">
-                    <div>
-                        <label>CPF</label>
-                        <input type="text" placeholder="000.000.000-00">
+        <form action="{{ url_for('cad_desp.cadastrar_desp') }}" method="POST">
+            <div class="container">
+                <!--PRIMEIRO CONTAINER-->
+                <section class="info-pessoais">
+                    <!--INFORMAÇÕES PESSOAIS-->
+                    <h3>Informações Pessoais</h3>
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome_desp" placeholder="Digite seu nome" required>
+                    <div class="inline-fields">
+                        <div>
+                            <label>CPF</label>
+                            <input type="text" name="cpf_desp" placeholder="00000000000" required>
+                        </div>
+                        <div>
+                            <label>RG</label>
+                            <input type="text" name="rg_desp" placeholder="Digite seu RG" required>
+                        </div>
                     </div>
-                    <div>
-                        <label>RG</label>
-                        <input type="text" placeholder="Digite seu RG">
-                    </div>
-                </div>
 
-                <label>Data de Nascimento</label>
-                <input type="date">
-                <button>Anexar Identidade</button>
-                
-                <!--INFORMAÇÕES DE CONTATO E LOGIN-->
-                <h3>Informações de Contato e Login</h3>
-                <div class="inline-fields">
-                    <div>
-                        <label>Telefone Pessoal</label>
-                        <input type="text" placeholder="(99) 99999-9999">
+                    <label>Data de Nascimento</label>
+                    <input type="date" name="nasc_desp" required>
+                    <button>Anexar Identidade</button>
+                    
+                    <!--INFORMAÇÕES DE CONTATO E LOGIN-->
+                    <h3>Informações de Contato e Login</h3>
+                    <div class="inline-fields">
+                        <div>
+                            <label>Telefone Pessoal</label>
+                            <input type="text" name="tele_pessoal_desp" placeholder="(99) 99999-9999" required>
+                        </div>
+                        <div>
+                            <label>Telefone Comercial</label>
+                            <input type="text" name="tele_comercial" placeholder="(99) 99999-9999" required>
+                        </div>
                     </div>
-                    <div>
-                        <label>Telefone Comercial</label>
-                        <input type="text" placeholder="(99) 99999-9999">
+                    <label>Email</label>
+                    <input type="email" name="email_desp" placeholder="Digite seu email" required>
+                    <div class="inline-fields">
+                        <div>
+                            <label>Senha</label>
+                            <input type="password" name="senha_desp" placeholder="Digite sua senha" required>
+                        </div>
+                        <div>
+                            <label>Confirmar Senha</label>
+                            <input type="password" name="senha_confir" placeholder="Confirme sua senha" required>
+                        </div>
                     </div>
-                </div>
-                <label>Email</label>
-                <input type="email" placeholder="Digite seu email">
-                <div class="inline-fields">
-                    <div>
-                        <label>Senha</label>
-                        <input type="password" placeholder="Digite sua senha">
-                    </div>
-                    <div>
-                        <label>Confirmar Senha</label>
-                        <input type="password" placeholder="Confirme sua senha">
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <!--SEGUNDO CONTAINER-->
-            <section class="info-despachante">
-                <!--INFORMAÇÕES DESPACHANTE-->
-                <h3>Informações Despachante</h3>
-                <label>Registro de CRDD</label>
-                <input type="text" placeholder="Digite o registro">
-                <label>Data de Expiração</label>
-                <input type="date">
-                <button>Anexar Registro</button>
+                <!--SEGUNDO CONTAINER-->
+                <section class="info-despachante">
+                    <!--INFORMAÇÕES DESPACHANTE-->
+                    <h3>Informações Despachante</h3>
+                    <label>Registro de CRDD</label>
+                    <input type="text" name="regis_crdd" placeholder="Digite o registro" required>
+                    <label>Data de Expiração</label>
+                    <input type="date" name="data_exp_regis" required>
+                    <button>Anexar Registro</button>
 
-                <!--INFORMAÇÕES ENDEREÇO DO COMERCIO-->
-                <h3>Endereço do Comércio</h3>
-                <label>Endereço</label>
-                <input type="text" placeholder="Digite o endereço">
-                <div class="inline-fields">
-                    <div>
-                        <label>Bairro</label>
-                        <input type="text" placeholder="Digite o bairro">
+                    <!--INFORMAÇÕES ENDEREÇO DO COMERCIO-->
+                    <h3>Endereço do Comércio</h3>
+                    <div class="inline-fields">
+                        <div>
+                            <label>Endereço</label>
+                            <input type="text" name="endereco_desp" placeholder="Digite o endereço">
+                        </div>
+                        <div>
+                            <label>Número do Local</label>
+                            <input type="number" name="num_desp" placeholder="Digite aqui o número" required>
+                        </div>
                     </div>
-                    <div>
-                        <label>CEP</label>
-                        <input type="text" placeholder="00000-000">
+                    <div class="inline-fields">
+                        <div>
+                            <label>Bairro</label>
+                            <input type="text" name="bairro_desp" placeholder="Digite o bairro">
+                        </div>
+                        <div>
+                            <label>CEP</label>
+                            <input type="text" name="cep_desp" placeholder="00000-000">
+                        </div>
                     </div>
-                </div>
-                <div class="inline-fields">
-                    <div>
-                        <label>Cidade</label>
-                        <input type="text" placeholder="Digite a cidade">
+                    <div class="inline-fields">
+                        <div>
+                            <label>Cidade</label>
+                            <input type="text" name="cidade_desp" placeholder="Digite a cidade">
+                        </div>
+                        <div>
+                            <label>Estado (Sigla)</label>
+                            <input type="text" name="estado_desp" maxlength="2" placeholder="Digite o estado">
+                        </div>
                     </div>
-                    <div>
-                        <label>Estado</label>
-                        <input type="text" placeholder="Digite o estado">
-                    </div>
-                </div>
-            </section>
-        </div>
-        <!--BOTÃO DE ENVIAR OS DADOS-->
-        <button class="enviar">Enviar</button>
+                </section>
+            </div>
+            <!--BOTÃO DE ENVIAR OS DADOS-->
+            <button type="submit" class="enviar">Enviar</button>
+        </form>
     </main>
-
 </body>
 </html>

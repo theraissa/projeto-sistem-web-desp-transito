@@ -14,26 +14,23 @@ def cadastrar_cliente():
     nome = request.form.get('nome-cliente')
     email = request.form.get('email-cliente')
     senha = request.form.get('senha-cliente')
-    senha_hash = generate_password_hash(senha)
-
     confirmar_senha = request.form.get('confirmar-senha')
 
-    if not cpf or not nome or not email or not senha or senha != confirmar_senha:
+    if not all([cpf, nome, email, senha]) or senha != confirmar_senha:
         flash("Preencha todos os campos corretamente.", "erro")
         return redirect(url_for('cad_cliente.tela_cadastro'))
-
     try:
         conn = get_connection()
         cur = conn.cursor()
         cur.execute("""
             INSERT INTO cliente (cpf_cliente, nome_cliente, email_cliente, senha_cliente)
-            VALUES (%s, %s, %s, %s)
-        """, (cpf, nome, email, senha_hash))
+            VALUES (%s, %s, %s, %s)""", (cpf, nome, email, senha))
+
         conn.commit()
         cur.close()
         conn.close()
         flash("Cadastro realizado com sucesso! Faça login para continuar.")
-        return redirect(url_for('login.tela_login'))
+        return redirect(url_for('inicio.tela_inicial'))
     
     except Exception as e:
         flash(f"Ocorreu um erro: {str(e)}", "erro")

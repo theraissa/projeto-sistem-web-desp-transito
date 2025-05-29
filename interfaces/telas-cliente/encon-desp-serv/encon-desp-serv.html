@@ -7,6 +7,7 @@
 
     <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
     <link rel="stylesheet" type="text/css" href="encon-desp-serv.css">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout/nav-header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='telas-cliente/encon-desp-serv/encon-desp-serv.css') }}">
 
@@ -27,21 +28,72 @@
             </div>
         </nav>
     </header>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!--BLOCO DOS DESPACHANTES-->
     <main>
         <div class="search-container">
-            <input type="text" placeholder="Pesquisar por Despachantes">
-            <input type="text" placeholder="Informar o Município">
+            <input type="text" id="pesquisar_desp" name="name_desp" placeholder="Pesquisar por Despachantes">
+            <input type="text" id="pesquisar_cidade" name="cidade_desp" placeholder="Informar o Município">
         </div>
         <section class="cards-container">
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
-            <div class="card"><div class="image-placeholder"></div><p>Text</p></div>
+            {% for despachante in despachantes %}
+                <div class="card">
+                    <div class="image-placeholder">
+                        <!--<img class="image-placeholder" src="{{ despachante.foto_url }}" alt="Foto de {{ despachante.nome }}" style="width: 100%; height: auto;">-->
+                        <img class="image-placeholder" style="width: 100%; height: auto;">
+                    </div>
+                    <div>
+                        <p class="nome_desp">{{ despachante[2] }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </section>
     </main>
+
+    <script>
+        const searchDespInput = document.getElementById('pesquisar_desp');
+        const searchCidadeInput = document.getElementById('pesquisar_cidade');
+
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+        function updateURL() {
+            const nomeDesp = removeAccents(searchDespInput.value.toLowerCase());
+            const cidadeDesp = removeAccents(searchCidadeInput.value.toLowerCase());
+            const url = new URL(window.location.href);
+
+            if (nomeDesp) {
+                url.searchParams.set('nome', nomeDesp);
+            } else {
+                url.searchParams.delete('nome');
+            }
+
+            if (cidadeDesp) {
+                url.searchParams.set('cidade', cidadeDesp);
+            } else {
+                url.searchParams.delete('cidade');
+            }
+
+            window.location.href = url.toString();
+        }
+
+        searchDespInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                updateURL();
+            }
+        });
+
+        searchCidadeInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                updateURL();
+            }
+        });
+    </script>
 </body>
 </html>
