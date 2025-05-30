@@ -19,7 +19,6 @@ header {
     background-color: #213555;
     color: white;
     font-size: 15px;
-
 }
 /*CORPO - LOCAL PARA PREENCHER INFORMAÇÕES*/
 main {
@@ -43,7 +42,6 @@ form {
 label {
     font-size: 12px;
     margin-top: 10px;
-    font-size: 12px;
 }
 input {
     padding: 10px;

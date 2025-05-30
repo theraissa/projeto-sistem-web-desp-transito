@@ -29,15 +29,19 @@ main h2 {
     padding: 15px;  
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Tornar o container um flex container */
+    flex-direction: column; /* Organizar os itens em coluna inicialmente */
 }
 .service-item {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     padding: 10px;
     margin: 10px 0;
     cursor: pointer;
     border-radius: 8px;
+    border: 1px solid black;
+    font-weight: 600;
     font-size: 13px;
     background: #E5E5E5;
 }
@@ -50,4 +54,27 @@ main h2 {
     cursor: pointer;
     font-size: 15px;
     margin-left: 10px;
+}
+/*botões*/
+.icon_editar, .icon_excluir {
+    align-items: center;
+    width: 23px;
+}
+.add-button-container {
+    display: flex;
+    justify-content: flex-end; /* Alinhar o botão à direita */
+    margin-bottom: 15px; /* Adicionar um pouco de espaço abaixo do botão */
+}
+.button_adicionar{
+    padding: 8px 15px;
+    border: none;
+    background-color: #2C2C2C;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.button_adicionar:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    background-color: #555;
+    cursor: pointer;
 }

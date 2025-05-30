@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
     
-    <!--<link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
-    <link rel="stylesheet" type="text/css" href="servico-desp.css">-->
-
+    <link rel="stylesheet" type="text/css" href="../../layout/">
+    <link rel="stylesheet" type="text/css" href="servico-desp.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='layout/nav-header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/servico-desp/servico-desp.css') }}">
 
@@ -33,20 +32,30 @@
     <main>
         <h2>Seus Serviços</h2>
         <section class="service-list">
-            <div class="service-item">
-                <span>Transferência de Proprietário</span>
-                <div class="actions">
-                    <button class="edit">✏️</button>
-                    <button class="delete">❌</button>
-                </div>
-            </div>
-            <div class="service-item">
-                <span>Autorização para nova placa Mercosul</span>
-                <div class="actions">
-                    <button class="edit">✏️</button>
-                    <button class="delete">❌</button>
-                </div>
-            </div>
+            <div class="add-button-container">
+                <a href="/despachante/criarNovoServico" class="button_adicionar">Adicionar Serviço</a>
+            </div>            
+            {% if servicos %}
+                {% for servico in servicos %}
+                    <div class="service-item">
+                        <span>{{ servico[1] }}</span>
+                        <div class="actions">
+                            <form method="POST" action="/despachante/editarServico/{{ servico[0] }}">
+                                <button class="edit" type="submit">
+                                    <img class="icon_editar" src="{{ url_for('static', filename='layout/icon_pencil.png') }}">
+                                </button>
+                            </form>
+                            <form method="POST" action="/despachante/deletarServico/{{ servico[0] }}">
+                                <button class="delete" type="submit">
+                                    <img class="icon_excluir" src="{{ url_for('static', filename='layout/icon_delete.png') }}">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Você ainda não cadastrou nenhum serviço.</p>
+            {% endif %}
         </section>
     </main>
 </body>

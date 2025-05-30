@@ -52,7 +52,28 @@ CREATE TABLE Estabelecimento (
     FOREIGN KEY (cpf_desp) REFERENCES Despachante(cpf_desp)
 );
 
+CREATE TABLE servico (
+    id_servico SERIAL PRIMARY KEY,
+    cpf_desp VARCHAR(14) NOT NULL,
+    nome_servico VARCHAR(100) NOT NULL,
+    descricao_servico TEXT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ult_atualiz TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+    CONSTRAINT fk_despachante
+        FOREIGN KEY (cpf_desp) REFERENCES despachante(cpf_desp)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE documento (
+    id_documento SERIAL PRIMARY KEY,
+    id_servico INT NOT NULL,
+    nome_doc VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_servico
+        FOREIGN KEY (id_servico) REFERENCES servico(id_servico)
+        ON DELETE CASCADE
+);
 
 /*
 CREATE TABLE Perfil_Cliente (
