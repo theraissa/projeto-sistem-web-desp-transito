@@ -20,7 +20,6 @@ Este é um sistema web desenvolvido para facilitar a comunicação entre despach
 
 ## 📝 Observações Importantes
 - O projeto está em desenvolvimento.
-- Futuramente será implementado um pipeline de CI/CD.
 - A estrutura modular facilita a manutenção e expansão do sistema.
 - O deploy automatizado via script simplifica o processo de atualização dos containers.
 
