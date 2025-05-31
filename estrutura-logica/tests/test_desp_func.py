@@ -13,20 +13,12 @@ from routes.login_routes import login_bp
 # --- FIXTURE CLIENTE --- #
 @pytest.fixture
 def client():
-    """
-    Fixture que configura o cliente de teste da aplicação Flask.
-    Cria uma nova instância da aplicação Flask para cada teste,
-    evitando o erro de blueprint já registrado e garantindo o caminho correto das templates.
-    """
-    # Cria uma nova instância do Flask para o teste
     test_app = Flask(__name__,
                      template_folder=os.path.join(BASE_DIR, 'interfaces'), 
                      static_folder=os.path.join(BASE_DIR, 'interfaces')) 
     test_app.config['TESTING'] = True
     test_app.secret_key = 'test_secret'
 
-    # Registra os blueprints necessários para os testes
-    # O url_prefix é importante para que as rotas sejam acessadas corretamente nos testes
     test_app.register_blueprint(desp_bp, url_prefix='/despachante')
     test_app.register_blueprint(login_bp, url_prefix='/login')
 
@@ -45,20 +37,19 @@ def login_session(client):
     yield
 
 # --- TESTE: /servicos (GET) --- #
-@patch('routes.desp_func.get_connection')  # O patch é necessário mesmo que não use o DB para consistência
+@patch('routes.desp_func.get_connection') 
 def test_servico_desp_ok(mock_get_conn, client, login_session):
     """
     Testa o cenário de sucesso para a rota /despachante/servicos.
     Verifica se a página é carregada com status 200 e exibe os serviços mockados.
     """
-    # Mock do cursor e da conexão do banco de dados
     mock_cursor = MagicMock()
-    mock_cursor.fetchall.return_value = [(1, 'CNH'), (2, 'Placa')] # Retorna serviços mockados
+    mock_cursor.fetchall.return_value = [(1, 'CNH'), (2, 'Placa')] 
     mock_get_conn.return_value.cursor.return_value = mock_cursor
-    mock_get_conn.return_value.close.return_value = None # Mock para o método close da conexão
-    mock_cursor.close.return_value = None # Mock para o método close do cursor
+    mock_get_conn.return_value.close.return_value = None
+    mock_cursor.close.return_value = None
 
-    response = client.get('/despachante/servicos') # Faz a requisição GET para a rota
+    response = client.get('/despachante/servicos')
 
     assert response.status_code == 200 
     assert b'Ol\xc3\xa1, Nome Despachante' in response.data
@@ -67,10 +58,9 @@ def test_servico_desp_ok(mock_get_conn, client, login_session):
     assert b'Placa' in response.data
     assert b'Voc\xc3\xaa ainda n\xc3\xa3o cadastrou nenhum servi\xc3\xa7o.' not in response.data
     
-    # Verifica se a consulta SQL foi executada (simplificado para não exigir correspondência exata da string)
-    mock_cursor.execute.assert_called_once() # Apenas verifica se 'execute' foi chamado uma vez
-    mock_cursor.close.assert_called_once() # Verifica se o cursor foi fechado
-    mock_get_conn.return_value.close.assert_called_once() # Verifica se a conexão foi fechada
+    mock_cursor.execute.assert_called_once() 
+    mock_cursor.close.assert_called_once() 
+    mock_get_conn.return_value.close.assert_called_once()
 
 # --- TESTE: /criarNovoServico (GET) --- #
 @patch('routes.desp_func.get_connection')

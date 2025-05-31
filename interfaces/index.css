@@ -81,99 +81,124 @@ nav ul li a, .button-login, .button-cadastro {
     color: white;
     border-radius: 5px;
 }
-
-/* SESSÃO - CARROSSEL */
+/* SESSÃO CARROSSEL */
 .sessao-carrossel {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /*distancia entre os elementos*/
-    padding: 70px;
+    padding: 50px;
+    overflow-x: scroll; /* Habilita a rolagem horizontal */
     background-color: #F5EFE7;
-}   
-
-/*QUADROS DO CARROSEL*/
-.sessao-quadro {
-    width: 300px;
+}
+.carrossel-container {
+    display: flex;
+    scroll-snap-type: x mandatory; /* Garante que os cards parem em posições específicas */
+    gap: 20px;
+}
+.carrossel-card {
+    flex: 0 0 300px; /* Impede que os cards cresçam e define a largura */
     height: 300px;
-    padding: 15px;
-    background-color: #ccc;
+    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    scroll-snap-align: start; /* Alinha o card ao início do contêiner */
+    transition: transform 0.3s ease; /* Transição suave para o hover */
+}
+.carrossel-card:hover {
+    transform: scale(1.05); /* Aumenta um pouco o card no hover */
 }
 .titulo-sessao {
-    text-align: left;
-    padding-bottom: 15px;
-    font-size: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
 }
 .parag-sessao {
-    text-align: left; /* Alinha o texto de forma justificada */
-    line-height: 1.5; /* Define o espaçamento entre as linhas */
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
 }
-
-/*SESSAO SOBRE NOS*/
+ /* SESSÃO SOBRE NOS */
 .sessao-sobre-nos {
-    padding: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 80px;
     background-color: #D8C4B6;
 }
 .sobre-nos-texto {
-    width: 900px;
-    height: 300px;
+    width: 60%; /* Ajuste a largura conforme necessário */
     padding: 40px;
-    display: block;
-    border-radius: 25px;
-    background-color: #F5EFE7;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
 }
-.titulo-sobre-nos, .parag-sobre-nos {
+.titulo-sobre-nos {
     display: flex;
     justify-content: center;
-}   
-.titulo-sobre-nos {
-    padding-bottom: 15px;
-    font-size: 19px;
+    align-items: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
 }
 .parag-sobre-nos {
-    text-align: justify; /* Alinha o texto de forma justificada */
-    line-height: 1.9; /* Define o espaçamento entre as linhas */
-    text-indent: 2em;
-    font-size: 12px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    text-align: left; /* Alinhe o parágrafo à esquerda */
+    text-indent: 0; /* Remova a indentação */
+    margin-bottom: 15px;
 }
 
 /*RODAPE*/
 footer {
-    background-color: #fff;
-    padding: 150px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-top: 2px solid #d4b5a5;
+    background-color: #f9f9f9;
+    padding: 50px 50px;
+    border-top: 1px solid #eee;
 }
-
-.footer-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
 }
-
-.footer-logo img {
-    width: 30px;
-}
-
-.footer-links {
-    display: flex;
-    gap: 50px;
-}
-
-.footer-links div {
-    display: flex;
-    flex-direction: column;
-}
-
-.footer-links a {
-    text-decoration: none;
+.footer-coluna h4 {
     color: #333;
-    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.footer-coluna ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-coluna ul li {
+    margin-bottom: 8px;
+}
+.footer-coluna ul li a {
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+.footer-coluna ul li a:hover {
+    color: #213555; /* Cor de destaque */
+}
+.footer-coluna.contato p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+}
+.footer-bottom a {
+    color: #999;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.footer-bottom a:hover {
+    color: #213555;
 }
