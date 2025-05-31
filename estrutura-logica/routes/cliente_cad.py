@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from werkzeug.security import generate_password_hash
 from db import get_connection
 
 cad_cliente_bp = Blueprint('cad_cliente', __name__)

@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
     
-    <link rel="stylesheet" type="text/css" href="../../layout/">
+    <link rel="stylesheet" type="text/css" href="../../layout/nav-header.css">
     <link rel="stylesheet" type="text/css" href="servico-desp.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='layout/nav-header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/mens_erro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/servico-desp/servico-desp.css') }}">
 
 
@@ -29,6 +30,13 @@
             </div>
         </nav>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div id="espaço_flash"><div id="cont_flash" class="flash {{ category }}">{{ msg }}</div></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <main>
         <h2>Seus Serviços</h2>
         <section class="service-list">
@@ -40,12 +48,14 @@
                     <div class="service-item">
                         <span>{{ servico[1] }}</span>
                         <div class="actions">
-                            <form method="POST" action="/despachante/editarServico/{{ servico[0] }}">
+                            <form method="POST" action="/despachante/editarServico">
+                                <input type="hidden" name="id_servico" value="{{ servico[0] }}">
                                 <button class="edit" type="submit">
                                     <img class="icon_editar" src="{{ url_for('static', filename='layout/icon_pencil.png') }}">
                                 </button>
                             </form>
-                            <form method="POST" action="/despachante/deletarServico/{{ servico[0] }}">
+                            <form method="POST" action="/despachante/deletarServico" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                                <input type="hidden" name="id_servico" value="{{ servico[0] }}">
                                 <button class="delete" type="submit">
                                     <img class="icon_excluir" src="{{ url_for('static', filename='layout/icon_delete.png') }}">
                                 </button>

@@ -3,43 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Novo Serviço</title>
+    <title>{{ 'Editar Serviço' if modo == 'editar' else 'Criar Novo Serviço' }}</title>
 
-    <link rel="stylesheet" type="text/css" href="criar-serv.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='telas-despachantes/servico-desp/criar-serv/criar-serv.css') }}">
 </head>
 <body>
     <header>
         <nav>
-            <h1>Criar Novo Serviço</h1>
+            <h1>{{ 'Editar Serviço' if modo == 'editar' else 'Criar Novo Serviço' }}</h1>
         </nav>
     </header>
     <main>
-        <form method="POST">
+        <form method="post" action="{% if modo == 'editar' %}{{ url_for('despachante.atualizar_servico') }}{% else %}{{ url_for('despachante.criar_servico') }}{% endif %}">
             <div class="form_group_criar">
                 <label for="nome_servico">Nome do Serviço:</label>
-                <input type="text" id="nome_servico" name="nome_servico" required>
+                {% if modo == 'editar' %}
+                    <input type="hidden" name="id_servico" value="{{ servico[0] }}">
+                {% endif %}
+                <input type="text" id="nome_servico" name="nome_servico" value="{{ servico[1] if servico else '' }}" required>
             </div>
+
             <div class="form_group_serv">
                 <label>Documentos Necessários:</label>
                 <div id="documentos-container">
-                    <div class="document-item" draggable="true">
-                        <span class="drag-handle">☰</span>
-                        <input type="text" name="documento[]" required>
-                        <button type="button" class="remove-document-button">Remover</button>
-                    </div>
-                    <div class="document-item" draggable="true">
-                        <span class="drag-handle">☰</span>
-                        <input type="text" name="documento[]" required>
-                        <button type="button" class="remove-document-button">Remover</button>
-                    </div>
+                    {% if documentos %}
+                        {% for doc in documentos %}
+                            <div class="document-item" draggable="true">
+                                <span class="drag-handle">☰</span>
+                                <input type="text" name="documento[]" value="{{ doc[1] }}">
+                                <button type="button" class="remove-document-button">Remover</button>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="document-item" draggable="true">
+                            <span class="drag-handle">☰</span>
+                            <input type="text" name="documento[]">
+                            <button type="button" class="remove-document-button">Remover</button>
+                        </div>
+                    {% endif %}
                 </div>
                 <button type="button" id="adicionar-documento" class="add-document-button">Adicionar Documento</button>
             </div>
+
             <div id="create-service-button">
-                <button type="submit" class="create-service-button">Criar Serviço</button>
+                <button type="submit" class="create-service-button">
+                    {{ 'Atualizar Serviço' if modo == 'editar' else 'Criar Serviço' }}
+                </button>
             </div>
-        </form> 
+        </form>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('documentos-container');
+            const addButton = document.getElementById('adicionar-documento');
+
+            addButton.addEventListener('click', function () {
+                const newItem = document.createElement('div');
+                newItem.classList.add('document-item');
+                newItem.setAttribute('draggable', 'true');
+
+                newItem.innerHTML = `
+                    <span class="drag-handle">☰</span>
+                    <input type="text" name="documento[]">
+                    <button type="button" class="remove-document-button">Remover</button>
+                `;
+
+                container.appendChild(newItem);
+            });
+
+            container.addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-document-button')) {
+                    e.target.parentElement.remove();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -82,13 +82,25 @@ def criar_servico():
         return render_template('telas-despachantes/servico-desp/criar-serv/criar-serv.html')
 
 @desp_bp.route('/deletarServico', methods=['POST'])
-def deletar_servico(id_servico):
+def deletar_servico():
     desp_id = session.get('desp_id')
 
     if not desp_id:
         flash("Você precisa estar logado.", "erro")
         return redirect(url_for('login.tela_login'))
+    
+    id_servico = request.form.get('id_servico')
 
+    if not id_servico:
+        flash("ID do serviço não informado.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    try:
+        id_servico = int(id_servico)
+    except ValueError:
+        flash("ID inválido.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+    
     try:
         conn = get_connection()
         cur = conn.cursor()
@@ -104,22 +116,141 @@ def deletar_servico(id_servico):
             return redirect(url_for('despachante.servico_desp'))
 
         # Deleta documentos relacionados
-        cur.execute("""
-            DELETE FROM documento WHERE id_servico = %s
-        """, (id_servico,))
-
+        cur.execute("""DELETE FROM documento WHERE id_servico = %s""", (id_servico,))
         # Deleta o serviço
-        cur.execute("""
-            DELETE FROM servico WHERE id_servico = %s
-        """, (id_servico,))
+        cur.execute("""DELETE FROM servico WHERE id_servico = %s""", (id_servico,))
 
         conn.commit()
+        flash("Serviço excluído com sucesso.", "sucesso")
+
+    except Exception as e:
+        flash(f"Erro ao excluir serviço: {str(e)}", "erro")
+    
+    finally:
         cur.close()
         conn.close()
 
-        flash("Serviço excluído com sucesso.", "sucesso")
+    return redirect(url_for('despachante.servico_desp'))
+
+@desp_bp.route('/editarServico', methods=['POST', 'GET'])
+def editar_servico():
+    desp_id = session.get('desp_id')
+
+    if not desp_id:
+        flash("Você precisa estar logado.", "erro")
+        return redirect(url_for('login.tela_login'))
+
+    id_servico = request.form.get('id_servico')
+    if not id_servico:
+        flash("ID do serviço não informado.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    try:
+        id_servico = int(id_servico)
+    except ValueError:
+        flash("ID inválido.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+
+        # Confirma se o serviço pertence ao despachante
+        cur.execute("""
+            SELECT id_servico, nome_servico 
+            FROM servico 
+            WHERE id_servico = %s AND cpf_desp = %s
+        """, (id_servico, desp_id))
+        servico = cur.fetchone()
+
+        if not servico:
+            flash("Serviço não encontrado ou você não tem permissão.", "erro")
+            return redirect(url_for('despachante.servico_desp'))
+
+        # Busca documentos
+        cur.execute("""
+            SELECT id_documento, nome_doc 
+            FROM documento 
+            WHERE id_servico = %s
+        """, (id_servico,))
+        documentos = cur.fetchall()
+
+        cur.close()
+        conn.close()
+
+        # Renderiza a mesma tela de criar, mas no modo 'editar'
+        return render_template('telas-despachantes/servico-desp/criar-serv/criar-serv.html',
+                               servico=servico, documentos=documentos, modo='editar')
+
     except Exception as e:
-        flash(f"Erro ao excluir serviço: {str(e)}", "erro")
+        flash(f"Erro ao carregar serviço para edição: {str(e)}", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+@desp_bp.route('/atualizarServico', methods=['POST'])
+def atualizar_servico():
+    desp_id = session.get('desp_id')
+
+    if not desp_id:
+        flash("Você precisa estar logado.", "erro")
+        return redirect(url_for('login.tela_login'))
+
+    id_servico = request.form.get('id_servico')
+    nome_servico = request.form.get('nome_servico')
+    documentos = request.form.getlist('documento[]')
+
+    if not id_servico:
+        flash("ID do serviço não informado.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    try:
+        id_servico = int(id_servico)
+    except ValueError:
+        flash("ID inválido.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    if not nome_servico:
+        flash("O nome do serviço é obrigatório.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    if not documentos:
+        flash("É necessário pelo menos um documento.", "erro")
+        return redirect(url_for('despachante.servico_desp'))
+
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+
+        # Verifica permissão
+        cur.execute("""
+            SELECT id_servico FROM servico WHERE id_servico = %s AND cpf_desp = %s
+        """, (id_servico, desp_id))
+        servico = cur.fetchone()
+
+        if not servico:
+            flash("Serviço não encontrado ou você não tem permissão.", "erro")
+            return redirect(url_for('despachante.servico_desp'))
+
+        # Atualiza o nome
+        cur.execute("""
+            UPDATE servico SET nome_servico = %s WHERE id_servico = %s
+        """, (nome_servico, id_servico))
+
+        # Atualiza documentos
+        cur.execute("DELETE FROM documento WHERE id_servico = %s", (id_servico,))
+        for doc in documentos:
+            cur.execute("""
+                INSERT INTO documento (id_servico, nome_doc) VALUES (%s, %s)
+            """, (id_servico, doc))
+
+        conn.commit()
+        flash("Serviço atualizado com sucesso!", "sucesso")
+
+    except Exception as e:
+        flash(f"Erro ao atualizar serviço: {str(e)}", "erro")
+
+    finally:
+        cur.close()
+        conn.close()
 
     return redirect(url_for('despachante.servico_desp'))
 
@@ -229,9 +360,9 @@ def atualizar_perfil_desp():
         conn.close()
         
         flash("Perfil atualizado com sucesso!", "sucesso")
-        return redirect(url_for('cad_desp.perfil_desp'))
+        return redirect(url_for('despachante.perfil_desp'))
     
     except Exception as e:
         flash(f"Erro ao atualizar o perfil: {str(e)}", "erro")
-        return redirect(url_for('cad_desp.perfil_desp')) 
+        return redirect(url_for('despachante.perfil_desp'))
     

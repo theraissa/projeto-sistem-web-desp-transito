@@ -48,17 +48,21 @@ main h2 {
 .service-item:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
-.actions button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    margin-left: 10px;
-}
 /*botões*/
 .icon_editar, .icon_excluir {
     align-items: center;
-    width: 23px;
+    width: 25px;
+}
+.actions {
+    display: flex;
+    font-size: 15px;
+    margin-left: 10px;
+}
+.edit, .delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
 }
 .add-button-container {
     display: flex;
