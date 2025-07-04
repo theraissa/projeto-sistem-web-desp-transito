@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
-    <link rel="stylesheet" type="text/css" href="login-autentic.css">
-
+    
+    <link rel="stylesheet" type="text/css" href="../login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../login.css') }}">
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +25,7 @@
             <form class="section-form-autentic" action="">
                 <label for="codigo-acesso">Código de Acesso</label>
                 <input type="text" id="codigo-acesso" placeholder="Digite Aqui">
-                <div class="button-acessar">
+                <div class="button_acessar">
                     <button type="">Reenviar Código</button>
                     <button type="submit">Acessar</button>
                 </div>

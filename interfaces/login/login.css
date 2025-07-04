@@ -7,7 +7,6 @@
 body {
     background-color: #F5EFE7;
 }
-
 /* CABEÇA - NAVEGAÇÃO */
 header {
     display: flex;
@@ -20,20 +19,35 @@ header {
     color: white;
     font-size: 15px;
 }
-/*CORPO - LOCAL PARA PREENCHER INFORMAÇÕES*/
+/*CORPO*/
 main {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px;
 }
-/*ENTRADAS DO FORMULARIO*/
-.section-login {
+/*DIALOGO - ARQ: LOGIN-AUTENTIC.CSS*/
+.titulo_cliente_desp {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    padding: 30px;
+}
+/*SECTION QUE CARREGA OS INPUTS - LOGIN E TELA DESP OU CLIENTE*/
+.section-login, .container_cliente_desp {
     width: 40%;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/*TITULO DA SECTION container_cliente_desp*/
+.div-escolha h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 60px;
 }
 form {
     display: flex;
@@ -50,11 +64,12 @@ input {
     border-radius: 5px;
     font-size: 10px;
 }
-.button-acessar{
+.button_acessar{
     display: flex;
     justify-content: center;
+    gap: 12px;
 }
-.button {
+.button_acessar button, .button_link{
     display: flex;
     justify-content: center;
     width: 40%;
@@ -65,9 +80,12 @@ input {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 12px;
     text-decoration: none;
 }
-.button:hover {
+.button_link {
+    font-size: 16px;
+}
+button:hover, .button_link:hover {
     background-color: #555;
 }

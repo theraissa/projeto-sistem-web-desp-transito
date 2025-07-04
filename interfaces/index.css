@@ -26,7 +26,6 @@ nav ul li a:hover {
     background-color: #3E5879;
     border-radius: 6px;
 }
-
 /*LINKS E BOTÕES - NAVEGAÇÃO*/
 html {
     scroll-behavior: smooth; /*transição mais leve ao rolar*/
@@ -49,20 +48,17 @@ nav ul li a, .button-login, .button-cadastro {
     background-color: white;
     color: #213555;
 }
-
 /* SESSÃO - LOGIN */
 .sessao-login-form {
     padding: 150px;
     text-align: center;
     background-color: #D8C4B6;
 }
-
 /*TITULO*/
 .sessao-login-form h1{
     color: #1E1E1E;
     font-size: 40px;
 }
-
 /* PARAGRAFO */
 .sessao-login-form p {
     padding: 20px;
@@ -147,7 +143,6 @@ nav ul li a, .button-login, .button-cadastro {
     text-indent: 0; /* Remova a indentação */
     margin-bottom: 15px;
 }
-
 /*RODAPE*/
 footer {
     background-color: #f9f9f9;

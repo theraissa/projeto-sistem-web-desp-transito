@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despachante de Trânsito</title>
 
-    <link rel="stylesheet" type="text/css" href="cliente-desp.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='cliente-desp/cliente-desp.css') }}">
+    <link rel="stylesheet" type="text/css" href="../login/login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}">
 
     <!--LINK DA FONTE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,17 +15,16 @@
 </head>
 <body>
     <!--CABEÇA - NAVEGAÇÃO-->
-    <header>
-    </header>
+    <header></header>
     <!--CONTAINER - CLIENTE OU DESPACHANTE -->
-    <div class="container-cliente-despachante">
-        <div class="div-escolha">
-            <h2>Cadastrar-se, como?</h2>
-            <div class="buttons">
-                <a href="/cadadastroCliente/" class="button">Cliente</a>
-                <a href="/cadastroDespachante/" class="button">Despachante</a>
+    <main>
+        <section class="container_cliente_desp">
+            <h2 class="titulo_cliente_desp">Cadastrar-se, como?</h2>
+            <div class="button_acessar">
+                <a class="button_link" href="/cadadastroCliente/">Cliente</a>
+                <a class="button_link" href="/cadastroDespachante/">Despachante</a>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </body>
 </html>
