@@ -16,7 +16,7 @@ Este é um sistema web desenvolvido para facilitar a comunicação entre despach
 - **HTML, CSS e JavaScript** para o front-end
 - **Docker** para conteinerização
 - **Docker Compose** para orquestração dos serviços
-- **PostgreSQL** (ou outro, conforme sua escolha)
+- **PostgreSQL** para o banco de dados
 
 ## 📝 Observações Importantes
 - O projeto está em desenvolvimento.
